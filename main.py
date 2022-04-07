@@ -4,14 +4,15 @@
 
 #imports
 import SpeechToTextDelay
-import SpeechToTextRealTime
+import SpeechToTextRealTime as stt
 
 
 
 
 
 #calling speech to text algorithm
-SpeechToTextDelay();
+#SpeechToTextDelay();
+stt.speech_to_text()
 
 
 

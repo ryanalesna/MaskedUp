@@ -1,5 +1,5 @@
 #this should convert speech to text in real time
-
+#install pyaudio, websockets, and brew install portaudio on mac
 import json
 
 import base64

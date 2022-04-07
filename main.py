@@ -3,12 +3,15 @@
 #this is where we will call all of our functions
 
 #imports
-import SpeechToText
+import SpeechToTextDelay
+import SpeechToTextRealTime
 
 
 
 
 
 #calling speech to text algorithm
-SpeechToText();
+SpeechToTextDelay();
+
+
 

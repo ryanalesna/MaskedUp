@@ -21,6 +21,7 @@ audio_stream = p.open(
     input=True,
 )
 
+
 async def speech_to_text():
     """
     Asynchronous function used to perfrom real-time speech-to-text using AssemblyAI API

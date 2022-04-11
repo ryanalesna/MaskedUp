@@ -1,5 +1,6 @@
 #this should convert speech to text in real time
 #install pyaudio, websockets, and brew install portaudio on mac
+#based on code from https://towardsdatascience.com/real-time-speech-recognition-python-assemblyai-13d35eeed226
 import json
 
 import base64
@@ -49,8 +50,7 @@ async def speech_to_text():
                     print(f'Something went wrong. Error code was {e.code}')
                     break
                 await asyncio.sleep(0.5)
-
-        return True
+            return True
 
         async def receive_data():
             """

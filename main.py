@@ -3,16 +3,13 @@
 #this is where we will call all of our functions
 
 #imports
-import SpeechToTextDelay
-import SpeechToTextRealTime as stt
-
-
-
+import SpeechToTextRealTime as sttrt
+import asyncio
 
 
 #calling speech to text algorithm
-#SpeechToTextDelay();
-stt.speech_to_text()
-
+futures = [sttrt.speech_to_text()]
+loop = asyncio.get_event_loop()
+loop.run_until_complete(asyncio.wait(futures))
 
 

@@ -49,7 +49,7 @@ async def speech_to_text():
                 except Exception as e:
                     print(f'Something went wrong. Error code was {e.code}')
                     break
-                await asyncio.sleep(0.5)
+                await asyncio.sleep(0.15)
             return True
 
         async def receive_data():

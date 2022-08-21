@@ -7,6 +7,7 @@ import base64
 import asyncio
 import pyaudio
 import websockets
+import FaceGUI
 
 SAMPLE_RATE = 16000
 FRAMES_PER_BUFFER = 3200
@@ -59,7 +60,9 @@ async def speech_to_text():
             while True:
                 try:
                     received_msg = await ws_connection.recv()
-                    print(json.loads(received_msg)['text'])
+                    data = json.loads(received_msg)['text']
+                    print(data)
+                    #FaceGUI.smiley.lipSync(data)
                 except Exception as e:
                     print(f'Something went wrong. Error code was {e.code}')
                     break

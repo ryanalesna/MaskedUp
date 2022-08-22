@@ -8,6 +8,7 @@ import asyncio
 import pyaudio
 import websockets
 import FaceGUI
+import GameLoop
 
 SAMPLE_RATE = 16000
 FRAMES_PER_BUFFER = 3200
@@ -48,7 +49,7 @@ async def speech_to_text():
                     data = base64.b64encode(data).decode('utf-8')
                     await ws_connection.send(json.dumps({'audio_data': str(data)}))
                 except Exception as e:
-                    print(f'Something went wrong. Error code was {e.code}')
+                    print(f'Something went wrong in sending. Error code was {e.code}')
                     break
                 await asyncio.sleep(0.15)
             return True
@@ -62,10 +63,9 @@ async def speech_to_text():
                     received_msg = await ws_connection.recv()
                     data = json.loads(received_msg)['text']
                     print(data)
-                    global gameLoop
-                    gameLoop.smiley.moveLips(data)
+                    GameLoop.gameLoop.smiley.moveLips(data)
                 except Exception as e:
-                    print(f'Something went wrong. Error code was {e.code}')
+                    print(f'Something went wrong in recieving. Error code was {e.code}')
                     break
 
         data_sent, data_received = await asyncio.gather(send_data(), receive_data())

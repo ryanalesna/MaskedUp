@@ -26,46 +26,57 @@ audio_stream = p.open(
 
 
 async def speech_to_text():
+    while True:
+        print("has done speech to text")
+        data_sent, data_received = await asyncio.gather(send_data(), receive_data())
+
+        await asyncio.sleep(0)
+
+async def send_data():
     """
-    Asynchronous function used to perfrom real-time speech-to-text using AssemblyAI API
+    Asynchronous function used for sending data
     """
     async with websockets.connect(
             ASSEMBLYAI_ENDPOINT,
             ping_interval=5,
-            ping_timeout=20,
+            ping_timeout=40,
             extra_headers=(('Authorization', API_KEY),),
     ) as ws_connection:
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0.1)
         await ws_connection.recv()
         print('Websocket connection initialised')
 
-        async def send_data():
-            """
-            Asynchronous function used for sending data
-            """
-            while True:
-                try:
-                    data = audio_stream.read(FRAMES_PER_BUFFER)
-                    data = base64.b64encode(data).decode('utf-8')
-                    await ws_connection.send(json.dumps({'audio_data': str(data)}))
-                except Exception as e:
-                    print(f'Something went wrong in sending. Error code was {e.code}')
-                    break
-                await asyncio.sleep(0.15)
-            return True
+        try:
+            data = audio_stream.read(FRAMES_PER_BUFFER)
+            data = base64.b64encode(data).decode('utf-8')
+            await ws_connection.send(json.dumps({'audio_data': str(data)}))
+        except Exception as e:
+            print(f'Something went wrong in sending. Error code was {e.code}')
 
-        async def receive_data():
-            """
-            Asynchronous function used for receiving data
-            """
-            while True:
-                try:
-                    received_msg = await ws_connection.recv()
-                    data = json.loads(received_msg)['text']
-                    print(data)
-                    GameLoop.gameLoop.smiley.moveLips(data)
-                except Exception as e:
-                    print(f'Something went wrong in recieving. Error code was {e.code}')
-                    break
+    return True
 
-        data_sent, data_received = await asyncio.gather(send_data(), receive_data())
+
+async def receive_data():
+    """
+    Asynchronous function used for receiving data
+    """
+
+    async with websockets.connect(
+            ASSEMBLYAI_ENDPOINT,
+            ping_interval=5,
+            ping_timeout=40,
+            extra_headers=(('Authorization', API_KEY),),
+    ) as ws_connection:
+        await asyncio.sleep(0.1)
+        await ws_connection.recv()
+        print('Websocket connection initialised')
+
+        try:
+            received_msg = await ws_connection.recv()
+            data = json.loads(received_msg)['text']
+            print(data)
+            GameLoop.gameLoop.smiley.moveLips(data)
+        except Exception as e:
+            print(f'Something went wrong in recieving. Error code was {e.code}')
+
+    return True

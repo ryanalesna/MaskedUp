@@ -62,7 +62,8 @@ async def speech_to_text():
                     received_msg = await ws_connection.recv()
                     data = json.loads(received_msg)['text']
                     print(data)
-                    #FaceGUI.smiley.lipSync(data)
+                    global gameLoop
+                    gameLoop.smiley.moveLips(data)
                 except Exception as e:
                     print(f'Something went wrong. Error code was {e.code}')
                     break

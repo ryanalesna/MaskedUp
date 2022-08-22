@@ -26,31 +26,14 @@ class SmileyFace:
 
     def moveLips(data):
         wordList = list(data)
-        #checks last word of the list
-        currWord = wordList.index(len(wordList))
         #loop through characters of each word
-        for element in currWord:
-            if data == 'm' or data == 'b' or data == 'p' or data == ' ':
-                closed
-                aysncio.sleep(0.2)
-            else:
-                open
-def main():
-    win = Tk()
-    canvas = Canvas(win, width=800, height=800)
-    canvas.pack()
-
-    smiley = SmileyFace(canvas)
-
-    #Button(win, text='Smile', command=smiley.smile).pack()
-    #Button(win, text='Closed', command=smiley.closed).pack()
-    #Button(win, text='Open', command=smiley.open).pack()
-    #Button(win, text='Quit', command=win.destroy).pack()
-    while(True):
-        smiley.moveLips(data)
-
-    win.mainloop()
-
-
-    #closed/open mouth
-    #if spaces, p,b,m. maybe f and v
+        if (len(wordList)) > 0:
+            # checks last word of the list
+            currWord = wordList[len(wordList)]
+            for element in currWord:
+                if data == 'm' or data == 'b' or data == 'p' or data == ' ':
+                    closed
+                    aysncio.sleep(0.2)
+                else:
+                    open
+        return 0

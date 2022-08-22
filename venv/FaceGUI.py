@@ -33,7 +33,7 @@ class SmileyFace:
             for element in currWord:
                 if data == 'm' or data == 'b' or data == 'p' or data == ' ':
                     closed
-                    aysncio.sleep(0.2)
+                    aysncio.sleep(0.3)
                 else:
                     open
         return 0
